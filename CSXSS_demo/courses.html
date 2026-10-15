@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - SkillSwap</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkblue: '#1E3A8A',
+                        teal: '#14B8A6',
+                        lightblue: '#BAE6FD',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-darkblue flex items-center justify-between px-6 py-4 shadow-md sticky top-0 z-50">
+        <div class="flex items-center space-x-6">
+            <a href="HomePg.html" class="bg-white px-2 py-0 border border-gray-300 rounded shadow-sm flex items-center justify-center hover:opacity-90 transition">
+                <img src="slogo.svg" alt="SkillSwap & CampuShare Logo" class="h-12 w-10">
+            </a>
+        </div>
+
+        <!-- Center Title -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 flex items-center space-x-3">
+            <h1 class="text-white text-2xl tracking-wider font-semibold">Courses</h1>
+        </div>
+
+        <!-- Profile Icon (Inline SVG - Teal) -->
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-teal cursor-pointer hover:opacity-80 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-darkblue sm:text-4xl">Upskill with Campus Experts</h2>
+            <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+                Learn highly demanded programming languages and technical skills directly from verified seniors and peers who have mastered them.
+            </p>
+        </div>
+
+        <!-- Filters & Search Bar -->
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-4 rounded-xl border border-gray-200 shadow-sm mb-8">
+            <!-- Search -->
+            <div class="w-full sm:w-1/2 relative">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                </span>
+                <input type="text" id="searchInput" placeholder="Search courses by name, provider or language..." class="w-full pl-9 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darkblue text-sm bg-gray-50 transition-colors">
+            </div>
+            <!-- Sort -->
+            <div class="flex items-center space-x-3 w-full sm:w-auto">
+                <label for="sortFilter" class="text-sm font-semibold text-darkblue whitespace-nowrap">Sort By:</label>
+                <select id="sortFilter" class="w-full sm:w-48 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-darkblue text-sm bg-gray-50 transition-colors">
+                    <option value="default">Featured Picks</option>
+                    <option value="price-asc">Cost: Fully Free First</option>
+                    <option value="price-desc">Cost: Paid Options First</option>
+                    <option value="name-asc">Title: A to Z</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Course Grid (cards are generated from courseData below, same markup as before) -->
+        <div id="coursesGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </main>
+
+    <!-- Modal Overlay -->
+    <div id="courseModal" class="fixed inset-0 bg-black/60 z-[60] hidden flex items-center justify-center px-4 backdrop-blur-sm transition-opacity">
+        <!-- Modal Content Box -->
+        <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col relative overflow-hidden transform scale-95 opacity-0 transition-all duration-300" id="modalContent">
+
+            <!-- Close Button -->
+            <button onclick="closeCourseModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 z-10 bg-white rounded-full p-1 shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+
+            <!-- Modal Header -->
+            <div class="bg-darkblue p-6 text-white shrink-0">
+                <div class="flex justify-between items-start">
+                    <div class="pr-8">
+                        <span id="modalLevel" class="inline-block px-2 py-1 rounded text-xs font-semibold bg-white/20 mb-2 uppercase tracking-wide">Free</span>
+                        <h2 id="modalTitle" class="text-2xl font-bold leading-tight">Course Title</h2>
+                        <p id="modalInstructor" class="text-sm text-blue-200 mt-1">Provider: Name</p>
+                    </div>
+                    <div class="text-right shrink-0 pr-6">
+                        <div id="modalPrice" class="text-2xl font-bold text-teal">Free</div>
+                        <p class="text-xs text-blue-200 mt-1">Cost</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-6 overflow-y-auto custom-scrollbar flex-grow text-gray-700">
+
+                <h4 class="font-bold text-darkblue mb-2 border-b border-gray-200 pb-1">Course Description</h4>
+                <p id="modalDescription" class="text-sm mb-6 leading-relaxed">Full description goes here...</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <h4 class="font-bold text-darkblue mb-2 border-b border-gray-200 pb-1">Key Features</h4>
+                        <ul id="modalPrereqs" class="list-disc pl-5 text-sm space-y-1"></ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-darkblue mb-2 border-b border-gray-200 pb-1">Course Details</h4>
+                        <ul class="text-sm space-y-2">
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-teal shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg> <span id="modalDuration">Provider</span></li>
+                            <li class="flex items-center"><svg class="w-4 h-4 mr-2 text-teal shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg> <span id="modalFormat">Format</span></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4 class="font-bold text-darkblue mb-2 border-b border-gray-200 pb-1">Cost &amp; Access</h4>
+                <ul id="modalSyllabus" class="space-y-3 text-sm"></ul>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 border-t border-gray-200 bg-gray-50 flex justify-end shrink-0">
+                <a id="modalLink" href="#" target="_blank" rel="noopener noreferrer" class="bg-teal hover:bg-teal-600 text-white font-bold py-2.5 px-6 rounded-lg transition-colors shadow-sm">
+                    Enroll Now
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Badge styles: free = green, free core / mixed = yellow
+        const BADGE_FREE = 'bg-green-100 text-green-800';
+        const BADGE_MIXED = 'bg-yellow-100 text-yellow-800';
+
+        // priceRank: 0 = fully free, 1 = free with optional paid extras
+        const courseData = {
+            'course1': {
+                icon: 'DSA', badge: 'Free', badgeClass: BADGE_FREE, priceLabel: 'Free', priceRank: 1,
+                title: 'Data Structures & Algorithms (DSA)',
+                provider: 'takeUforward (Striver)',
+                short: 'Follow the A2Z DSA roadmap with 474+ problems, video lectures and written editorials.',
+                description: 'Master Data Structures & Algorithms with takeUforward\'s structured A2Z DSA roadmap. Learn through video lectures and written editorials, solve 474+ practice problems, and track your progress with built-in revision tools.',
+                features: ['A2Z DSA roadmap', '474+ problems', 'Video lectures', 'Written editorials', 'Practice problems', 'Progress tracking', 'Revision', 'Coding practice'],
+                format: 'Online (Video + Practice Problems)',
+                cost: 'Free for the core A2Z curriculum; paid DSA Pass / TUF+ is optional.',
+                link: 'https://takeuforward.org'
+            },
+            'course2': {
+                icon: 'NPTEL', badge: 'Free + Certificate', badgeClass: BADGE_MIXED, priceLabel: 'Free', priceRank: 1,
+                title: 'Programming, Data Structures & Algorithms',
+                provider: 'NPTEL – IIT Madras',
+                short: 'IIT Madras course with video lectures, weekly assignments and an optional certification exam.',
+                description: 'A university-grade course on Programming, Data Structures & Algorithms from NPTEL – IIT Madras. Learn from video lectures, practise with weekly assignments, programming problems and objective questions, and optionally earn a certificate.',
+                features: ['Video lectures', 'Weekly assignments', 'Programming problems', 'Objective questions', 'DSA topics', 'Certificate option'],
+                format: 'Online (Video Lectures + Assignments)',
+                cost: 'Free to learn; ₹1,000 for the optional certification exam.',
+                link: 'https://nptel.ac.in'
+            },
+            'course3': {
+                icon: 'FS', badge: 'Free', badgeClass: BADGE_FREE, priceLabel: '₹0', priceRank: 0,
+                title: 'Full-Stack Web Development',
+                provider: 'freeCodeCamp',
+                short: 'Interactive lessons covering HTML, CSS, JavaScript, Python, SQL and backend development.',
+                description: 'Learn full-stack development with freeCodeCamp\'s interactive lessons. Work through coding exercises and quizzes, build practical projects, and earn free certifications. No paid subscription required.',
+                features: ['Interactive lessons', 'HTML, CSS, JavaScript', 'Python & SQL', 'Backend development', 'Coding exercises', 'Quizzes', 'Practical projects', 'Free certifications'],
+                format: 'Online (Interactive, Self-paced)',
+                cost: '₹0 — completely free, including certifications. No paid subscription required.',
+                link: 'https://www.freecodecamp.org'
+            },
+            'course4': {
+                icon: '</>', badge: 'Free', badgeClass: BADGE_FREE, priceLabel: 'Free', priceRank: 0,
+                title: 'Web Development (HTML, CSS, JavaScript)',
+                provider: 'freeCodeCamp',
+                short: 'Build responsive websites with interactive lessons and hands-on practical projects.',
+                description: 'Learn the core of the web — HTML, CSS and JavaScript — through interactive coding lessons. Cover responsive web design, front-end and back-end development and database management, and finish with practical projects and free certifications.',
+                features: ['Interactive coding lessons', 'HTML, CSS, JavaScript', 'Responsive web design', 'Front-end development', 'Back-end development', 'Database management', 'Practical projects', 'Coding exercises', 'Free certifications'],
+                format: 'Online (Interactive, Self-paced)',
+                cost: 'Free.',
+                link: 'https://www.freecodecamp.org'
+            },
+            'course5': {
+                icon: 'PY', badge: 'Free Audit', badgeClass: BADGE_MIXED, priceLabel: 'Free / Paid', priceRank: 1,
+                title: 'Python Programming and Application Development',
+                provider: 'Coursera',
+                short: 'Python fundamentals to automation and data analysis, with hands-on assignments.',
+                description: 'Build a strong Python foundation and move on to application development. Learn variables, loops, functions, data structures, file handling and OOP, then apply them to automation and data analysis through hands-on assignments.',
+                features: ['Python fundamentals', 'Variables, loops, functions', 'Data structures', 'File handling', 'Object-oriented programming', 'Automation', 'Data analysis', 'Hands-on assignments', 'Professional certificates'],
+                format: 'Online (Video + Hands-on Assignments)',
+                cost: 'Selected courses can be audited for free; certificates and some learning programs require payment.',
+                link: 'https://www.coursera.org'
+            },
+            'course6': {
+                icon: 'JAVA', badge: 'Free + Paid', badgeClass: BADGE_MIXED, priceLabel: 'Varies', priceRank: 1,
+                title: 'Java Programming and Object-Oriented Programming (OOP)',
+                provider: 'Udemy',
+                short: 'Java fundamentals, OOP, collections, multithreading and JDBC with practical projects.',
+                description: 'Learn Java and Object-Oriented Programming from the ground up — classes, inheritance, polymorphism, exception handling, collections, multithreading and JDBC — and apply them in coding exercises and application projects.',
+                features: ['Java fundamentals', 'Classes and objects', 'Inheritance & polymorphism', 'Exception handling', 'Collections', 'Multithreading', 'JDBC', 'Application development', 'Coding exercises', 'Practical projects'],
+                format: 'Online (Pre-recorded Video Courses)',
+                cost: 'Free and paid courses are available; prices vary by course and promotion.',
+                link: 'https://www.udemy.com'
+            },
+            'course7': {
+                icon: 'ODIN', badge: 'Free', badgeClass: BADGE_FREE, priceLabel: 'Free', priceRank: 0,
+                title: 'Full-Stack Web Development',
+                provider: 'The Odin Project',
+                short: 'Project-based path through HTML, CSS, JavaScript, Git, Node.js and databases.',
+                description: 'A project-based full-stack curriculum. Start with HTML, CSS, JavaScript, Git and GitHub, then move into front-end development, Node.js, back-end development and databases while building portfolio projects.',
+                features: ['HTML, CSS, JavaScript', 'Git & GitHub', 'Front-end development', 'Node.js', 'Back-end development', 'Databases', 'Web application development', 'Portfolio projects', 'Practical assignments'],
+                format: 'Online (Self-paced, Project-based)',
+                cost: 'Free.',
+                link: 'https://www.theodinproject.com'
+            },
+            'course8': {
+                icon: 'CP', badge: 'Free Practice', badgeClass: BADGE_MIXED, priceLabel: 'Free', priceRank: 1,
+                title: 'Competitive Programming and Algorithmic Problem-Solving',
+                provider: 'CodeChef',
+                short: 'Contests, algorithmic challenges and rankings from beginner to advanced level.',
+                description: 'Sharpen your problem-solving through CodeChef\'s programming contests and algorithmic challenges. Practise beginner-to-advanced problems on data structures and algorithms, read editorial explanations, and track your performance rankings.',
+                features: ['Programming contests', 'Algorithmic challenges', 'Beginner-to-advanced problems', 'Data structures', 'Algorithms', 'Problem-solving practice', 'Performance rankings', 'Editorial explanations', 'Competitive programming assessments'],
+                format: 'Online (Contests + Practice)',
+                cost: 'Free coding practice is available; selected learning programs or other services may have separate fees.',
+                link: 'https://www.codechef.com'
+            },
+            'course9': {
+                icon: 'CS50', badge: 'Free + Certificate', badgeClass: BADGE_MIXED, priceLabel: 'Free', priceRank: 1,
+                title: 'Computer Science and Programming Fundamentals',
+                provider: 'CS50',
+                short: 'Intro to computer science covering C, Python, SQL, algorithms and web development.',
+                description: 'An introduction to computer science and programming. Learn C, Python and SQL, understand algorithms, data structures and memory management, explore web development, and complete problem sets and a final project.',
+                features: ['Intro to computer science', 'C, Python, SQL', 'Algorithms', 'Data structures', 'Memory management', 'Web development', 'Programming assignments', 'Problem-solving exercises', 'Final project'],
+                format: 'Online (Lectures + Problem Sets)',
+                cost: 'Free to access many course materials; an optional verified certificate may require payment through the relevant provider.',
+                link: 'https://cs50.harvard.edu'
+            },
+            'course10': {
+                icon: 'JS', badge: 'Free + Paid', badgeClass: BADGE_MIXED, priceLabel: 'Free / Paid', priceRank: 1,
+                title: 'JavaScript Programming and Front-End Development',
+                provider: 'Scrimba',
+                short: 'Interactive JavaScript lessons, DOM manipulation, React fundamentals and website projects.',
+                description: 'Learn JavaScript and front-end development through interactive lessons. Cover HTML, CSS, DOM manipulation, event handling, debugging and React fundamentals, and put them to use in coding challenges and website projects.',
+                features: ['Interactive JavaScript lessons', 'HTML & CSS', 'DOM manipulation', 'Event handling', 'React fundamentals', 'Debugging', 'Front-end development', 'Coding challenges', 'Practical website projects'],
+                format: 'Online (Interactive Lessons)',
+                cost: 'Free courses are available; some advanced courses and career paths require payment.',
+                link: 'https://scrimba.com'
+            },
+            'course11': {
+                icon: 'AI/ML', badge: 'Free', badgeClass: BADGE_FREE, priceLabel: 'Free', priceRank: 0,
+                title: 'Artificial Intelligence (AI) and Machine Learning with Python',
+                provider: 'Kaggle',
+                short: 'Learn pandas, data visualization and ML fundamentals using real-world datasets.',
+                description: 'Get hands-on with AI and Machine Learning in Python. Learn pandas, data cleaning and visualization, train your first models in notebooks using real-world datasets, and test your skills in competitions and data science projects.',
+                features: ['Python programming', 'Pandas', 'Data visualization', 'Machine learning fundamentals', 'Model training', 'Data cleaning', 'Notebooks', 'Real-world datasets', 'Coding exercises', 'Competitions', 'Data science projects'],
+                format: 'Online (Notebooks + Exercises)',
+                cost: 'Free.',
+                link: 'https://www.kaggle.com/learn'
+            },
+            'course12': {
+                icon: 'CLOUD', badge: 'Free + Exams', badgeClass: BADGE_MIXED, priceLabel: 'Free', priceRank: 1,
+                title: 'Cloud Computing, Software Development, and Cloud-Based Applications',
+                provider: 'Microsoft Learn',
+                short: 'C#, Python and Azure: build, deploy and certify cloud-based applications.',
+                description: 'Learn to build cloud-based applications with C#, Python and Azure. Cover APIs, databases, cloud deployment and GitHub integration through hands-on modules and developer tools, and prepare for Microsoft certification.',
+                features: ['C# and Python', 'Azure cloud services', 'Application development', 'APIs', 'Databases', 'Cloud deployment', 'GitHub integration', 'Hands-on learning modules', 'Developer tools', 'Certification preparation'],
+                format: 'Online (Hands-on Learning Modules)',
+                cost: 'Free learning modules are available; certification exams and certain instructor-led programs may require payment.',
+                link: 'https://learn.microsoft.com'
+            }
+        };
+
+        // Render cards into the grid
+        const coursesGrid = document.getElementById('coursesGrid');
+        coursesGrid.innerHTML = Object.entries(courseData).map(([id, c]) => `
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow cursor-pointer flex flex-col" data-rank="${c.priceRank}" data-provider="${c.provider}" onclick="openCourseModal('${id}')">
+                <div class="h-40 bg-lightblue flex items-center justify-center border-b border-blue-100">
+                    <span class="text-5xl font-mono text-darkblue font-bold">${c.icon.replace('<', '&lt;').replace('>', '&gt;')}</span>
+                </div>
+                <div class="p-6 flex-grow flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${c.badgeClass}">${c.badge}</span>
+                            <span class="text-sm font-bold text-teal">${c.priceLabel}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-2">${c.title}</h3>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-2">${c.short}</p>
+                    </div>
+                    <div class="flex items-center text-sm text-gray-500 border-t border-gray-100 pt-3">
+                        <svg class="flex-shrink-0 mr-1.5 h-4 w-4 text-teal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                        </svg>
+                        Provider: ${c.provider}
+                    </div>
+                </div>
+            </div>`).join('');
+
+        const modal = document.getElementById('courseModal');
+        const modalContentBox = document.getElementById('modalContent');
+
+        function openCourseModal(courseId) {
+            const data = courseData[courseId];
+
+            document.getElementById('modalTitle').innerText = data.title;
+            document.getElementById('modalLevel').innerText = data.badge;
+            document.getElementById('modalInstructor').innerText = 'Provider: ' + data.provider;
+            document.getElementById('modalPrice').innerText = data.priceLabel;
+            document.getElementById('modalDescription').innerText = data.description;
+            document.getElementById('modalDuration').innerText = data.provider;
+            document.getElementById('modalFormat').innerText = data.format;
+            document.getElementById('modalLink').href = data.link;
+
+            const featureList = document.getElementById('modalPrereqs');
+            featureList.innerHTML = '';
+            data.features.forEach(item => {
+                featureList.innerHTML += `<li>${item}</li>`;
+            });
+
+            const costList = document.getElementById('modalSyllabus');
+            costList.innerHTML = `<li class="flex items-start"><span class="mr-2 text-teal">▶</span> <span>${data.cost}</span></li>`;
+
+            const levelBadge = document.getElementById('modalLevel');
+            levelBadge.className = 'inline-block px-2 py-1 rounded text-xs font-semibold mb-2 uppercase tracking-wide ';
+            levelBadge.className += data.priceRank === 0 ? 'bg-green-500 text-white' : 'bg-yellow-500 text-white';
+
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modalContentBox.classList.remove('scale-95', 'opacity-0');
+                modalContentBox.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeCourseModal() {
+            modalContentBox.classList.remove('scale-100', 'opacity-100');
+            modalContentBox.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeCourseModal();
+            }
+        });
+
+        const searchInput = document.getElementById('searchInput');
+        const sortFilter = document.getElementById('sortFilter');
+
+        // Capture initial DOM order for the "Featured Picks" default sort
+        const originalCards = Array.from(coursesGrid.children);
+
+        function applyFilters() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            const sortValue = sortFilter.value;
+
+            // 1. Filter by title, description or provider
+            let visibleCards = originalCards.filter(card => {
+                const title = card.querySelector('h3').innerText.toLowerCase();
+                const desc = card.querySelector('p').innerText.toLowerCase();
+                const provider = card.dataset.provider.toLowerCase();
+                return title.includes(searchTerm) || desc.includes(searchTerm) || provider.includes(searchTerm);
+            });
+
+            // 2. Sort
+            if (sortValue === 'price-asc') {
+                visibleCards.sort((a, b) => getPrice(a) - getPrice(b));
+            } else if (sortValue === 'price-desc') {
+                visibleCards.sort((a, b) => getPrice(b) - getPrice(a));
+            } else if (sortValue === 'name-asc') {
+                visibleCards.sort((a, b) => getTitle(a).localeCompare(getTitle(b)));
+            }
+
+            // 3. Re-append
+            coursesGrid.innerHTML = '';
+            visibleCards.forEach(card => {
+                card.style.display = 'flex';
+                coursesGrid.appendChild(card);
+            });
+            originalCards.forEach(card => {
+                if (!visibleCards.includes(card)) {
+                    card.style.display = 'none';
+                    coursesGrid.appendChild(card);
+                }
+            });
+        }
+
+        // 0 = fully free, 1 = free with optional paid extras
+        function getPrice(card) {
+            return parseInt(card.dataset.rank) || 0;
+        }
+
+        function getTitle(card) {
+            return card.querySelector('h3').innerText;
+        }
+
+        if (searchInput && sortFilter) {
+            searchInput.addEventListener('input', applyFilters);
+            sortFilter.addEventListener('change', applyFilters);
+        }
+    </script>
+</body>
+</html>

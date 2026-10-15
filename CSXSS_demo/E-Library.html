@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 font-sans">
+
+    <!-- Top Navigation Bar -->
+    <nav class="bg-[#1E3A8A] flex items-center justify-between px-6 py-4 relative shadow-md">
+        <!-- Logo Box (links to Home Page) -->
+        <div class="flex items-center">
+            <div class="bg-white text-[#1E3A8A] font-bold px-6 py-2 border border-gray-300 rounded shadow-sm">
+                <a href="HomePg.html" class="block hover:opacity-90 transition">
+                    <img src="slogo.svg" alt="SkillSwap Logo" class="h-16 w-auto drop-shadow-sm">
+                </a>
+            </div>
+        </div>
+
+        <!-- Center Title -->
+        <div class="absolute left-1/2 transform -translate-x-1/2">
+            <h1 class="text-[#FFFFFF] text-2xl tracking-wider font-light">E-library</h1>
+        </div>
+
+        <!-- Profile Icon -->
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-[#14B8A6] cursor-pointer hover:opacity-80 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="max-w-3xl mx-auto mt-16 p-6">
+        
+        <!-- CSS Grid for 2x2 Layout -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <!-- FE Block -->
+            <div class="group relative">
+                <!-- Main Box -->
+                <div class="bg-[#BAE6FD] border border-blue-300 h-40 flex items-center justify-center rounded shadow-sm cursor-pointer transition-transform duration-200 group-hover:shadow-md group-hover:-translate-y-1">
+                    <h2 class="text-4xl text-[#1E3A8A] font-medium tracking-widest">FE</h2>
+                </div>
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10 overflow-hidden">
+                    <ul class="flex flex-col">
+                        <a href="FE Syllabus.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Syllabus
+                        </a>
+                        <a href="textbooks_fe.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Text Books
+                        </a>
+                        <a href="FE PYQs.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> PYQs
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- SE Block -->
+            <div class="group relative">
+                <!-- Main Box -->
+                <div class="bg-[#BAE6FD] border border-blue-300 h-40 flex items-center justify-center rounded shadow-sm cursor-pointer transition-transform duration-200 group-hover:shadow-md group-hover:-translate-y-1">
+                    <h2 class="text-4xl text-[#1E3A8A] font-medium tracking-widest">SE</h2>
+                </div>
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10 overflow-hidden">
+                    <ul class="flex flex-col">
+                        <a href="SE Syllabus.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Syllabus
+                        </a>
+                        <a href="textbooks_se.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Text Books
+                        </a>
+                        <a href="pyqs_se.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> PYQs
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- TE Block -->
+            <div class="group relative">
+                <!-- Main Box -->
+                <div class="bg-[#BAE6FD] border border-blue-300 h-40 flex items-center justify-center rounded shadow-sm cursor-pointer transition-transform duration-200 group-hover:shadow-md group-hover:-translate-y-1">
+                    <h2 class="text-4xl text-[#1E3A8A] font-medium tracking-widest">TE</h2>
+                </div>
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10 overflow-hidden">
+                    <ul class="flex flex-col">
+                        <a href="TE Syllabus.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Syllabus
+                        </a>
+                        <a href="textbooks_te.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Text Books
+                        </a>
+                        <a href="pyqs_te.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> PYQs
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- BE Block -->
+            <div class="group relative">
+                <!-- Main Box -->
+                <div class="bg-[#BAE6FD] border border-blue-300 h-40 flex items-center justify-center rounded shadow-sm cursor-pointer transition-transform duration-200 group-hover:shadow-md group-hover:-translate-y-1">
+                    <h2 class="text-4xl text-[#1E3A8A] font-medium tracking-widest">BE</h2>
+                </div>
+                <!-- Dropdown Menu -->
+                <div class="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-10 overflow-hidden">
+                    <ul class="flex flex-col">
+                        <a href="BE Syllabus.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Syllabus
+                        </a>
+                        <a href="textbooks_be.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center border-b border-gray-100 transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> Text Books
+                        </a>
+                        <a href="pyqs_be.pdf" target="_blank" class="px-4 py-3 hover:bg-gray-100 text-gray-700 flex items-center transition-colors">
+                            <span class="mr-3 text-[#1E3A8A] text-xs">►</span> PYQs
+                        </a>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+</html>

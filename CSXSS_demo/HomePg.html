@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    
+    <!-- External Dependency: Tailwind CSS CDN for utility-first styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navBg: '#1E3A8A',       // Primary navigation background (Dark Blue)
+                        navText: '#FFFFFF',     // Navigation typography color (White)
+                        iconColor: '#14B8A6',   // Interactive accent color for UI icons (Teal)
+                        carouselBg: '#BAE6FD',  // Background color for hero and media sections (Light Blue)
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Enable smooth scrolling behavior for intra-page anchor link navigation */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* Define uniform opacity transition states for interactive anchor elements */
+        a {
+            transition: opacity 0.2s ease-in-out;
+        }
+        a:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <header class="bg-navBg shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <!-- Container: Brand Identity and Desktop Navigation Elements -->
+                <div class="flex items-center space-x-4 md:space-x-8">
+                    <!-- Sub-container: Brand Logo -->
+                    <div class="flex-shrink-0">
+                        <!-- Logo wrapper with specified white background and elevation for visual contrast -->
+                        <div class="bg-white rounded p-1 w-50 h-14 flex items-center justify-center border border-gray-200 shadow-sm">
+                            <img src="logo.svg" class="h-14 w-auto drop-shadow-sm">
+                        </div>
+                    </div>
+                    
+                    <!-- Sub-container: Desktop Navigation Links -->
+                    <nav class="hidden md:block">
+                        <div class="flex space-x-3 items-center">
+                            <a href="HomePg.html" class="bg-white/10 hover:bg-white/20 text-navText font-medium px-4 py-2 rounded-md transition-colors border border-transparent hover:border-white/30 text-sm shadow-sm">Home</a>
+                            <a href="AbtUs.html" class="bg-white/10 hover:bg-white/20 text-navText font-medium px-4 py-2 rounded-md transition-colors border border-transparent hover:border-white/30 text-sm shadow-sm">About Us</a>
+                            <a href="Service.html" class="bg-white/10 hover:bg-white/20 text-navText font-medium px-4 py-2 rounded-md transition-colors border border-transparent hover:border-white/30 text-sm shadow-sm">Services</a>
+                        </div>
+                    </nav>
+                </div>
+                
+                <!-- Container: User Action Group (Profile & Mobile Menu Controls) -->
+                <div class="flex items-center space-x-4">
+                    <a href="Registrationpg.html" aria-label="Profile" class="text-iconColor hover:text-teal-400 focus:outline-none transition-colors flex items-center justify-center">
+                        <!-- Vector Graphic: User Profile Action Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </a>
+                    <button aria-label="Menu" class="md:hidden text-navText focus:outline-none flex items-center justify-center">
+                        <!-- Vector Graphic: Mobile Navigation Menu Toggle (Hamburger) Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow">
+        <!-- Hero Media Section: Autoplaying Video Presentation -->
+        <section class="bg-carouselBg w-full min-h-[300px] md:min-h-[400px] lg:min-h-[500px] flex items-center justify-center relative">
+            <div class="text-center px-4">
+                <video width="2000" height="480" autoplay muted loop playsinline>
+                    <source src="HomePgVid.mp4" type="video/mp4">
+                </video>
+            </div>
+        </section>
+        <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20">
+            <div class="border-t border-gray-300 pt-8 mt-4">
+                <h2 class="text-3xl font-semibold text-gray-800 mb-6 relative inline-block">
+                    Home
+                    <span class="absolute bottom-0 left-0 w-1/2 h-1 bg-iconColor rounded-full -mb-2"></span>
+                </h2>
+                <div class="mt-8 text-gray-600">
+                    <p>
+            Meet Aryan — a first-year student who's a little lost. He's not sure which course to pick, what lab equipment he actually needs, and his budget is already tight. College is overwhelming enough on its own, and on top of that, everything is scattered across different places — haggling with strangers on OLX, hunting for notes in random WhatsApp groups, or trying to track down a senior just to get his doubts cleared.<br><br>
+            Now imagine Aryan finds one platform where he can rent a lab coat and drafter from a verified senior on his own campus, grab free notes from the E-library, book a mentor to clear his doubts, and compare courses to pick the right one — all in one place, with zero stress. That's exactly what we're building: a way to make college life simpler, more affordable, and all in one spot.
+            </p>
+                    <br>
+                    <hr>
+                    <br>
+                    <p><u>Technical Stack</u></p>
+                    <br>
+                    <p>The development plan for this project utilizes a structured technical stack to integrate frontend design with backend data management:
+                    <br>
+                    <ul>
+                    <li>Frontend Architecture: The home page is developed using HTML and CSS, incorporating the Tailwind CSS framework to build a responsive, utility-driven user interface.</li>
+                    <br>
+                    <li>Database Management: A MySQL relational database will be developed for backend storage. Once built, it is designed to manage student authentication credentials (usernames and passwords). The intended database schema will also scale to store comprehensive student and user records, material datasets, and e-library data.</li>
+                    <br>
+                    <li>System Integration: JDBC (Java Database Connectivity) will be implemented to establish the connection between the frontend web application and the MySQL database, enabling secure and reliable data transactions.</li>
+                    </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

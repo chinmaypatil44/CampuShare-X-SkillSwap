@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Unified Campus Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navBg: '#1E3A8A',       
+                        navText: '#FFFFFF',     
+                        iconColor: '#14B8A6',   
+                        lightBlue: '#BAE6FD'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .tab-active {
+            background-color: #1E3A8A;
+            color: white;
+            border-color: #1E3A8A;
+        }
+        .tab-inactive {
+            background-color: white;
+            color: #4B5563;
+            border-color: #D1D5DB;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans antialiased min-h-screen flex flex-col">
+
+    <nav class="bg-navBg shadow-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                
+                <div class="flex items-center space-x-4 md:space-x-8">
+                    <!-- Logo Box (links to Home Page) -->
+                    <div class="flex-shrink-0">
+                        <div class="bg-white px-2 py-1 border border-gray-200 rounded shadow-sm flex items-center justify-center h-14 w-15">
+                            <a href="HomePg.html" class="block hover:opacity-90 transition">
+                                <img src="slogo.svg" alt="CampuShare Logo" class="h-10 w-9 transform scale-125 object-contain">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Center Title (Mobile hidden) -->
+                <div class="hidden lg:flex absolute left-1/2 transform -translate-x-1/2 items-center space-x-3">
+                    <h1 class="text-[#FFFFFF] text-2xl tracking-wider font-semibold">Communities</h1>
+                </div>
+                
+                <!-- Profile Icon & Mobile Menu -->
+                <div class="flex items-center space-x-4">
+                    <button aria-label="Profile" class="text-iconColor hover:text-teal-400 focus:outline-none flex items-center justify-center transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow max-w-6xl mx-auto px-4 py-10 w-full">
+        
+        <!-- Introduction Header -->
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-navBg mb-3">Campus Communities</h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Find your tribe! Select your academic year below to discover study groups, tech clubs, and entrepreneurial circles happening on campus right now.</p>
+        </div>
+
+        <!-- Year Selection Dropdown -->
+        <div class="flex justify-center mb-10">
+            <div class="relative w-full max-w-xs">
+                <label for="year-select" class="block text-sm font-semibold text-navBg mb-2 text-center">Select Academic Year</label>
+                <select id="year-select" onchange="showTab(this.value)" class="block w-full px-4 py-3 text-gray-700 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-navBg focus:border-transparent appearance-none cursor-pointer text-center font-medium transition-shadow hover:shadow-md">
+                    <option value="fe">First Year (FE)</option>
+                    <option value="se">Second Year (SE)</option>
+                    <option value="te">Third Year (TE)</option>
+                    <option value="be">Fourth Year (BE)</option>
+                </select>
+                <!-- Custom Arrow Icon -->
+                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 pt-7 text-gray-500">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- FE Content Area -->
+        <div id="fe-groups" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+            
+            <!-- Group Card 1 -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        FS
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Full Stack Web Dev</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">FE • 140+ Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">Beginner-friendly community focusing on HTML, CSS, JavaScript, and building your first portfolio website.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-1" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+
+            <!-- Group Card 2 -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        DS
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">DSA for Beginners</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">FE • 85 Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">A supportive group tackling logic building, arrays, loops, and basic Data Structures using C and Python.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-2" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+
+            <!-- Group Card 3 -->
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        ED
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Entrepreneurship Cell</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">FE • 60 Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">Brainstorm startup ideas, discuss the ED syllabus, and find co-founders for your college projects.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-3" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+
+        <!-- SE Content Area (Hidden by default) -->
+        <div id="se-groups" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        ML
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">AI/DS Specialization</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">SE • 210 Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">Collaborative study group for Artificial Intelligence & Data Science syllabus, datasets, and Python scripts.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-4" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        JV
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Advanced Java/Servlets</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">SE • 115 Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">For students working on backend ED projects using Java, Servlets, JDBC, and Apache Tomcat.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-5" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+
+        <!-- TE Content Area (Hidden by default) -->
+        <div id="te-groups" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        CP
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Competitive Programming</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">TE • 180 Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">LeetCode, Codeforces, and Hackerrank daily challenges to prepare for upcoming tech internships.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-6" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        IN
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Internship Hunt Network</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">TE • 250+ Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">Share off-campus drives, resume review tips, and referral opportunities for TE students.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-7" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+
+        <!-- BE Content Area (Hidden by default) -->
+        <div id="be-groups" class="hidden grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 transition-opacity duration-300">
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        PR
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Final Year Projects</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">BE • 300+ Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">Find project team members, discuss IEEE base papers, and get reviews on your final year architecture.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-8" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col">
+                <div class="flex items-center space-x-4 mb-4">
+                    <div class="w-14 h-14 bg-lightBlue rounded-full flex items-center justify-center text-navBg font-bold text-xl shrink-0">
+                        PL
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 leading-tight">Placement Prep 2026</h3>
+                        <p class="text-xs text-iconColor font-medium mt-1">BE • 450+ Members</p>
+                    </div>
+                </div>
+                <p class="text-sm text-gray-600 mb-6 flex-grow">Mock interviews, aptitude preparation, and sharing campus placement drive updates and experiences.</p>
+                <a href="https://chat.whatsapp.com/mock-invite-link-9" target="_blank" class="w-full bg-navBg hover:bg-blue-800 text-white font-medium py-2.5 rounded-lg transition-colors text-center shadow-sm">
+                    Join WhatsApp Group
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        function showTab(year) {
+            // 1. Hide all group containers
+            const years = ['fe', 'se', 'te', 'be'];
+            years.forEach(y => {
+                const container = document.getElementById(y + '-groups');
+                // Use classList to toggle Tailwind classes for display block/hidden
+                container.classList.remove('grid');
+                container.classList.add('hidden');
+            });
+
+            // 2. Show selected container
+            const activeContainer = document.getElementById(year + '-groups');
+            activeContainer.classList.remove('hidden');
+            activeContainer.classList.add('grid'); // Grid is required for the card layout
+        }
+    </script>
+
+</body>
+</html>
